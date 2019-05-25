@@ -3,9 +3,11 @@ public class NumIntSeq {
     public static void main(String[] args) {
 
         long numSteps = 0;
-        double sum = 0.0;
-
+        
+        
+      
         /* parse command line */
+
         if (args.length != 1) {
 		System.out.println("arguments:  number_of_steps");
                 System.exit(1);
@@ -16,16 +18,19 @@ public class NumIntSeq {
 		System.out.println("argument "+ args[0] +" must be long int");
 		System.exit(1);
         }
+      	
         /* start timing */
         long startTime = System.currentTimeMillis();
 
-        double step = 1.0 / (double)numSteps;
+        
         /* do computation */
-        for (long i=0; i < numSteps; ++i) {
-            double x = ((double)i+0.5)*step;
-            sum += 4.0/(1.0+x*x);
-        }
-        double pi = sum * step;
+        
+  
+       CalculationWithSharedMemory calculator = new CalculationWithSharedMemory(numSteps) ;
+       
+       
+       
+       double pi = calculator.calculate() ; 
 
         /* end timing and print result */
         long endTime = System.currentTimeMillis();
