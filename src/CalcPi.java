@@ -1,4 +1,4 @@
-public class NumIntSeq {
+public class CalcPi {
 
     public static void main(String[] args) {
 
@@ -7,7 +7,7 @@ public class NumIntSeq {
         
       
         // parse command line 
-/*
+
         if (args.length != 1) {
 		System.out.println("arguments:  number_of_steps");
                 System.exit(1);
@@ -18,14 +18,14 @@ public class NumIntSeq {
 		System.out.println("argument "+ args[0] +" must be long int");
 		System.exit(1);
         }
-      	*/
+      
         // start timing 
         long startTime = System.currentTimeMillis(); 
 		
        
         // do computation 
        
-        CalculationWithDistributedMemory calculator = new CalculationWithDistributedMemory(numSteps, 10) ;
+        CalculationWithDistributedMemory calculator = new CalculationWithDistributedMemory(numSteps, 100) ;
        //CalculationWithSharedMemory calculator = new CalculationWithSharedMemory(numSteps) ;
        
        

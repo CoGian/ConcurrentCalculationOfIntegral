@@ -57,7 +57,7 @@ public class MasterServerTCP {
 		for(int j = 0 ; j < sums.length; j++)
 			sum += sums[j] ; 
 		
-		
+		connectionSocket.close();
 		return sum ;
 		
 			
