@@ -1,13 +1,13 @@
 import java.io.IOException;
 
-public class CalculationWithDistributedMemory {
+public class CalculationWithDistributedMemory extends Calculation {
 	
 	private long numSteps ;
 	private long numWorkers ;
-	public  double sum = 0.0;
+	private double sum = 0.0;
 	
 	public CalculationWithDistributedMemory(long numSteps, long numWorkers) {
-		
+		super(numSteps) ;
 		this.numSteps = numSteps;
 		this.numWorkers = numWorkers;
 	}

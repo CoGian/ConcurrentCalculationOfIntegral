@@ -1,11 +1,12 @@
 
 
-public class CalculationWithSharedMemory {
+public class CalculationWithSharedMemory extends Calculation{
 	
 	private long numSteps ;
-	public  double sum = 0.0;
+	private double sum = 0.0;
 	
 	public CalculationWithSharedMemory(long numSteps) {
+		super(numSteps) ;
 		this.numSteps = numSteps;
 	} 
 	

@@ -2,32 +2,36 @@ public class CalcPi {
 
     public static void main(String[] args) {
 
-        long numSteps = 1000000000;
-        
+        long numSteps = 0 ;
+        String method = null ; 
         
       
         // parse command line 
 
-        if (args.length != 1) {
-		System.out.println("arguments:  number_of_steps");
-                System.exit(1);
+        if (args.length != 2) {
+			System.out.println("arguments:  number_of_steps method");
+	                System.exit(1);
         }
         try {
-		numSteps = Long.parseLong(args[0]);
+        	numSteps = Long.parseLong(args[0]);
+        	method = args[1] ;
         } catch (NumberFormatException e) {
-		System.out.println("argument "+ args[0] +" must be long int");
-		System.exit(1);
+			System.out.println("argument "+ args[0] +" must be long int");
+			System.exit(1);
         }
       
         // start timing 
         long startTime = System.currentTimeMillis(); 
 		
-       
-        // do computation 
-       
-        CalculationWithDistributedMemory calculator = new CalculationWithDistributedMemory(numSteps, 100) ;
-       //CalculationWithSharedMemory calculator = new CalculationWithSharedMemory(numSteps) ;
-       
+        Calculation calculator = null;
+        // do computation depending the method 
+        	
+       if(method.equals("shared")) 
+    	    calculator = new CalculationWithSharedMemory(numSteps) ;
+       else if(method.equals("distr") )
+    	   calculator = new CalculationWithDistributedMemory(numSteps, 10) ;
+       else if(method.equals("seq") )
+    	   calculator = new Calculation(numSteps) ;       
        
        
        double pi = calculator.calculate() ; 
