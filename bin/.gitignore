@@ -4,3 +4,9 @@
 /step.class
 /stepThread.class
 /cyclicBarrier.class
+/CalculationWithDistributedMemory.class
+/MasterServerTCP.class
+/ServerThread.class
+/CalculationWithDistributedMemory$1.class
+/WorkerTCP.class
+/CalculationWithDistributedMemory$2.class
