@@ -11,7 +11,6 @@ public class MasterServerTCP {
 		
 		//create a socket listening 
 		ServerSocket connectionSocket = new ServerSocket(PORT);
-		System.out.println("Server is listening to port: " + PORT);
 		
 		Socket dataSockets[] = new Socket[(int) numWorkers] ; 
 		Double sums[] = new Double[(int) numWorkers] ;
@@ -23,7 +22,6 @@ public class MasterServerTCP {
 
 			//accept a connection 
 			dataSockets[i]=	connectionSocket.accept();
-			System.out.println("Received request from " + dataSockets[i].getInetAddress());
 			
 			
 			

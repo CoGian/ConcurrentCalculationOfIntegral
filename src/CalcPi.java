@@ -54,7 +54,7 @@ public class CalcPi {
 
         // end timing and print result 
         long endTime = System.currentTimeMillis();
-        System.out.printf("sequential program results with %d steps\n", numSteps);
+        System.out.printf(method + " results with %d steps\n", numSteps);
         System.out.printf("computed pi = %22.20f\n" , pi);
         System.out.printf("difference between estimated pi and Math.PI = %22.20f\n", Math.abs(pi - Math.PI));
         System.out.printf("time to compute = %f seconds\n", (double) (endTime - startTime) / 1000);

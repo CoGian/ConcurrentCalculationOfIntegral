@@ -16,6 +16,8 @@ public class CalculationWithDistributedMemory extends Calculation {
 		
 		double step = 1.0 / (double)numSteps;
 		
+		// use threads to automate the process of starting a server and multiple clients 
+		
 		// start a thread as a server	
 		  new Thread(new Runnable() {
 	            @Override
@@ -63,7 +65,7 @@ public class CalculationWithDistributedMemory extends Calculation {
 		}
 		
 		  
-		// wait and yield until the return send the sum 
+		// wait and yield until the server send the sum 
 		while(sum == 0.0 ) {
 			Thread.yield();
 		}
