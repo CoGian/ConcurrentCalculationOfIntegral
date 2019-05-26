@@ -2,12 +2,10 @@
 
 public class CalculationWithSharedMemory extends Calculation{
 	
-	private long numSteps ;
 	private double sum = 0.0;
 	
 	public CalculationWithSharedMemory(long numSteps) {
 		super(numSteps) ;
-		this.numSteps = numSteps;
 	} 
 	
 	public double calculate() {
@@ -20,10 +18,19 @@ public class CalculationWithSharedMemory extends Calculation{
 		/* do computation */	  
 		linearBarrier Barrier = new linearBarrier(cores+1,Thread.currentThread().getId());
 					
+		// find how many steps to calculate  
+		long steps_to_calculate = (long) (numSteps/cores)  ;
+		
 		// initialize threads and start them
 		stepThread Threads[] = new stepThread[cores];
 		for (int i=0; i < cores; ++i) {
-			Threads[i] = new stepThread(i, Barrier, step ,numSteps,cores) ; 
+				    	
+			if (i==cores-1) // if it is  the last thread change steps to calculate accordingly 
+	    		 steps_to_calculate =  (long) (numSteps - (steps_to_calculate * (cores-1) )) ; 
+	    
+	    			
+	    	long initialstep = ((long) (numSteps/cores)) * i ;
+			Threads[i] = new stepThread(i, Barrier, step ,initialstep,steps_to_calculate) ; 
 		    Threads[i].start() ; 
 		    
 		 }

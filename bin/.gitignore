@@ -12,3 +12,5 @@
 /CalculationWithDistributedMemory$2.class
 /CalcPi.class
 /Calculation.class
+/CalculationWithDistributedAndSharedMemory.class
+/WorkerWithThreadsTCP.class

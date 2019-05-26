@@ -15,6 +15,9 @@ public class MasterServerTCP {
 		
 		Socket dataSockets[] = new Socket[(int) numWorkers] ; 
 		Double sums[] = new Double[(int) numWorkers] ;
+		
+		// find how many steps to calculate depending on worker 
+		long steps_to_calculate = (long) (numSteps/numWorkers) ;
 		int i = 0 ; 
 		while (true) {	
 
@@ -24,14 +27,8 @@ public class MasterServerTCP {
 			
 			
 			
-			
-			// find how many steps to calculate depending on worker 
-			long steps_to_calculate ;
-			
-			if (i<numWorkers-1) // if it is not the last worker 
-				 steps_to_calculate  = (long) (numSteps/numWorkers) ; 
-			else 
-				 steps_to_calculate =  (long) (numSteps - (((long) (numSteps/numWorkers)) * (numWorkers-1) )) ; 
+			if (i==numWorkers-1) // if it is  the last worker change steps to calculate accordingly 
+				steps_to_calculate =  (long) (numSteps - (steps_to_calculate * (numWorkers-1) )) ; 
    
 					
 			long initialstep = ((long) (numSteps/numWorkers)) * i ;

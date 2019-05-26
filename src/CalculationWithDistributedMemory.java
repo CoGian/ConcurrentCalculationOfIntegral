@@ -2,14 +2,14 @@ import java.io.IOException;
 
 public class CalculationWithDistributedMemory extends Calculation {
 	
-	private long numSteps ;
 	private long numWorkers ;
 	private double sum = 0.0;
+	private boolean shared  ; 
 	
-	public CalculationWithDistributedMemory(long numSteps, long numWorkers) {
+	public CalculationWithDistributedMemory(long numSteps, long numWorkers, boolean shared) {
 		super(numSteps) ;
-		this.numSteps = numSteps;
 		this.numWorkers = numWorkers;
+		this.shared = shared ; 
 	}
 	
 	public double calculate() {
@@ -29,21 +29,26 @@ public class CalculationWithDistributedMemory extends Calculation {
 	            }
 	        }).start();
 		
-		  // start multiple threads as workers 
-		  for(int i =0 ; i<numWorkers ; i ++) {
-			  new Thread(new Runnable() {
-		            @Override
-		            public void run() {
-		                try {
-		                	WorkerTCP.main(null); 		                		
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		            }
-		        }).start();
-			  
-		  }	  
+		if(!shared) {
+			  // start multiple threads as workers, who don't use their own threads
+			  for(int i =0 ; i<numWorkers ; i ++) {
+				  new Thread(new Runnable() {
+			            @Override
+			            public void run() {
+			                try {
+			                	WorkerTCP.main(null); 		                		
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }).start();
+				  
+			  }	  
+		}else {
+			
+		}
+		
 		  
 		// wait and yield until the return send the sum 
 		while(sum == 0.0 ) {

@@ -4,34 +4,21 @@ public class stepThread extends Thread {
 	private int threadID;
     private linearBarrier myBarrier;
     private double step ; 
-    private long numSteps ; 
     public  double sum = 0.0;
-    public int cores ; 
+    long initialstep ; 
+    long steps_to_calculate ; 
     
-    public stepThread(int tid, linearBarrier bar, double step, long numSteps, int cores) {
+    public stepThread(int tid, linearBarrier bar, double step, long initialstep, long steps_to_calculate) {
     	this.threadID = tid;
     	this.myBarrier = bar;
     	this.step = step ; 
-    	this.numSteps = numSteps ; 
-    	this.cores = cores ;
+    	this.initialstep = initialstep ; 
+    	this.steps_to_calculate = steps_to_calculate ;
     }
     
     
-    public void run() {
-    	
-    	
-    	// find how many steps to calculate depending on thread id 
-    	long steps_to_calculate ;
-    	
-		if (threadID<cores-1) // if it is not the last thread 
-    		 steps_to_calculate  = (long) (numSteps/cores) ; 
-    	else 
-    		 steps_to_calculate =  (long) (numSteps - (((long) (numSteps/cores)) * (cores-1) )) ; 
-    
-    			
-    	long initialstep = ((long) (numSteps/cores)) * threadID ;
-		
-    	
+    public void run() {    	    	 	
+		    	
     	
     	//do computation 	
     	for(long i= initialstep ; i < initialstep + steps_to_calculate ; i ++  ) {

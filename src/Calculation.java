@@ -1,6 +1,6 @@
 
 public class Calculation {
-	private long numSteps ;
+	protected long numSteps ;
 	private double sum = 0.0;
 	
 	public Calculation(long numSteps) {
