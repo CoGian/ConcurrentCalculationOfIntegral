@@ -26,17 +26,44 @@ public class WorkerWithThreadsTCP {
 			inmsg = in.readLine();
 			
 			String [] arrOfStr = inmsg.split(" ") ; 
-			long initialstep = Long.parseLong(arrOfStr[0]) ; 
+			long initialstepOfWorker = Long.parseLong(arrOfStr[0]) ; 
+			long initialstepOfThread = initialstepOfWorker ;
 			long steps_to_calculate = Long.parseLong(arrOfStr[1]) ;
 			double step = Double.parseDouble(arrOfStr[2]) ;
-			
+			long numSteps = steps_to_calculate ;
 			double sum = 0.0 ;
-			// do computation 	
-	    	for(long i= initialstep ; i < initialstep + steps_to_calculate ; i ++  ) {
-	    	  
-	            double x = ((double)i+0.5)*step;
-	            sum += 4.0/(1.0+x*x);            
-	    	}
+						
+			// get available cores 
+			int cores = Runtime.getRuntime().availableProcessors();
+			
+			
+			/* do computation */	  
+			linearBarrier Barrier = new linearBarrier(cores+1,Thread.currentThread().getId());
+						
+			// find how many steps to calculate  
+			steps_to_calculate = (long) (numSteps/cores)  ;
+			
+			// initialize threads and start them
+			stepThread Threads[] = new stepThread[cores];
+			for (int i=0; i < cores; ++i) {
+					    	
+				if (i==cores-1) // if it is  the last thread change steps to calculate accordingly 
+		    		 steps_to_calculate =  (long) (initialstepOfWorker + numSteps) - initialstepOfThread ; 
+		    
+				Threads[i] = new stepThread(i, Barrier, step ,initialstepOfThread,steps_to_calculate) ; 
+			    Threads[i].start() ; 
+			    
+			    initialstepOfThread += steps_to_calculate ;
+			    
+			 }
+			
+			// wait for all the threads to finish 
+			Barrier.barrier();
+			 
+			// summarize thread's sums 
+			for (int i=0; i < cores; ++i) {		    
+			    sum += Threads[i].getSum();
+			 }
 	    	
 	    	// send sum to server 
 	    	outmsg = Double.toString(sum);

@@ -46,7 +46,20 @@ public class CalculationWithDistributedMemory extends Calculation {
 				  
 			  }	  
 		}else {
-			
+			  // start multiple threads as workers, who  use their own threads
+			  for(int i =0 ; i<numWorkers ; i ++) {
+				  new Thread(new Runnable() {
+			            @Override
+			            public void run() {
+			                try {
+			                	WorkerWithThreadsTCP.main(null); 		                		
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+			            }
+			        }).start();
+			  }
 		}
 		
 		  

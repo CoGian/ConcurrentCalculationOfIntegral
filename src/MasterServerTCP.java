@@ -31,7 +31,7 @@ public class MasterServerTCP {
 				steps_to_calculate =  (long) (numSteps - (steps_to_calculate * (numWorkers-1) )) ; 
    
 					
-			long initialstep = ((long) (numSteps/numWorkers)) * i ;
+			long initialstep = steps_to_calculate * i ;
 			
 			// start a thread to wait the answer of a worker 
 			ServerThread sthread = new ServerThread(dataSockets[i],sums,initialstep,steps_to_calculate,i,step);

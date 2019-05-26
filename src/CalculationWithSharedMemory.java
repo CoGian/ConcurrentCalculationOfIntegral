@@ -29,7 +29,7 @@ public class CalculationWithSharedMemory extends Calculation{
 	    		 steps_to_calculate =  (long) (numSteps - (steps_to_calculate * (cores-1) )) ; 
 	    
 	    			
-	    	long initialstep = ((long) (numSteps/cores)) * i ;
+	    	long initialstep = steps_to_calculate * i ;
 			Threads[i] = new stepThread(i, Barrier, step ,initialstep,steps_to_calculate) ; 
 		    Threads[i].start() ; 
 		    
