@@ -9,7 +9,7 @@ public class CalcPi {
         // parse command line 
 
         if (args.length > 3) {
-			System.out.println("Usage: java CalcPi <number of steps> <method> (if method is distr Or distr&Shared)<number of workers>");
+			System.out.println("Usage: java CalcPi <number of steps> <method> (if method is distr Or distrNshared)<number of workers>");
 	                System.exit(1);
         }
         try {
@@ -37,7 +37,16 @@ public class CalcPi {
     		   System.out.println("argument "+ args[2] +" must be long int");
    			System.exit(1);
     	   }    	   
-       else if(method.equals("seq") )
+       else if(method.equals("distrNshared") ) {
+    	   try {
+   		    	long numWorkers = Long.parseLong(args[2]);
+   		    	calculator = new CalculationWithDistributedMemory(numSteps, numWorkers,true) ;
+	   	   } catch (NumberFormatException e) {
+	   		   System.out.println("argument "+ args[2] +" must be long int");
+	  			System.exit(1);
+	   	   }    	   
+       }    	   
+       else
     	   calculator = new Calculation(numSteps) ;       
        
        
