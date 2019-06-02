@@ -1,6 +1,6 @@
 # Concurrent_Calculation_of_Integral
 
-Demonstrates the use of multithreading,monitors and sockets to calculate an approximation of ð using arithmetic integration.
+Demonstrates the use of multithreading,monitors and sockets to calculate an approximation of pi using arithmetic integration.
 
 
 ## Methods 
